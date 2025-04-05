@@ -1,1 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Login</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <h1>Welcome to Chat App</h1>
+        <p>Connect with admin for support</p>
+      </div>
+      
+      <div class="login-tabs">
+        <button class="tab-btn active" data-tab="client">Client</button>
+        <button class="tab-btn" data-tab="admin">Admin</button>
+      </div>
+      
+      <div class="login-form-container">
+        <form id="client-login-form" class="login-form active">
+          <div class="form-group">
+            <label for="client-name">Your Name</label>
+            <input type="text" id="client-name" placeholder="Enter your name" required>
+          </div>
+          <button type="submit" class="login-btn">Join Chat</button>
+        </form>
+        
+        <form id="admin-login-form" class="login-form">
+          <div class="form-group">
+            <label for="admin-name">Admin Name</label>
+            <input type="text" id="admin-name" placeholder="Enter admin name" required>
+          </div>
+          <div class="form-group">
+            <label for="admin-password">Password</label>
+            <input type="password" id="admin-password" placeholder="Enter password" required>
+          </div>
+          <button type="submit" class="login-btn">Login as Admin</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const loginForms = document.querySelectorAll('.login-form');
+    
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        loginForms.forEach(form => form.classList.remove('active'));
+        
+        btn.classList.add('active');
+        const tabName = btn.getAttribute('data-tab');
+        document.getElementById(`${tabName}-login-form`).classList.add('active');
+      });
+    });
+    
+    document.getElementById('client-login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('client-name').value.trim();
+      
+      if (name) {
+        sessionStorage.setItem('chatUser', JSON.stringify({ name, isAdmin: false }));
+        window.location.href = '/chat';
+      }
+    });
+    
+    document.getElementById('admin-login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('admin-name').value.trim();
+      const password = document.getElementById('admin-password').value;
+      
+      if (name && password === 'kaze0323') {
+        sessionStorage.setItem('chatUser', JSON.stringify({ name, isAdmin: true }));
+        window.location.href = '/chat';
+      } else {
+        alert('Invalid admin credentials!');
+      }
+    });
+  </script>
+</body>
+</html>
 

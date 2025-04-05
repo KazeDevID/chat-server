@@ -1,5 +1,5 @@
 {
-  "name": "admin-client-chat",
+  "name": "chat-server",
   "version": "1.0.0",
   "description": "A chat application between admin and clients",
   "main": "server.js",
